@@ -1,0 +1,2 @@
+video base: https://www.youtube.com/watch?v=TjAXBLszCb0
+base2: https://github.com/daricesousa/busqueReceitas-api/blob/main/src/controllers/controllerUser.ts 
