@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { prontuarioRepositorie } from "../repositories/ProntuarioRepositorie";
+import { pacienteRepositorie } from "../repositories/PacienteRepositorie";
 
 export class ProntuarioControllers {
 
@@ -58,6 +59,31 @@ export class ProntuarioControllers {
             console.log(error);
             return res.status(500).json({message: "Erro no servidor"})
             
+        }
+    }
+
+    async find(req: Request, res: Response) {
+        const id  = parseInt(req.body.id, 10);
+
+        try{
+            const prontExist = await prontuarioRepositorie.findOne({ where: {
+                paciente: {
+                    id: id
+                }
+            } });
+    
+            if (prontExist){
+                return res.json({
+                    ...prontExist,
+                });
+            }else{
+                return res.status(404).json({ message: "Prontuario não encontrado" })
+            }    
+        } catch (error){
+            console.log(error);
+            return res.status(500).json({
+              message: "erro interno",
+            });
         }
     }
 

@@ -31,8 +31,7 @@ routes.post('/create-prontuario', authMiddleware, new ProntuarioControllers().cr
 routes.get('/prontuarios',authMiddleware, new ProntuarioControllers().list)
 routes.patch('/alter-prontuario/:id', authMiddleware, new ProntuarioControllers().alter)
 routes.delete('/delete-prontuario/:id',authMiddleware, new ProntuarioControllers().delete)
-
-//Rotas de Exame
+routes.post('/prontuarioPaciente', authMiddleware, new ProntuarioControllers().find)
 
 
 
