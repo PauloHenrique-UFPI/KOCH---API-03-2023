@@ -16,7 +16,7 @@ routes.delete('/delete-user/:id', authMiddleware, new UserController().delete)
 
 //Rotas de Noticias
 routes.post('/create-new', new NewController().create)
-routes.get('/noticias', authMiddleware, new NewController().noticias)
+routes.get('/noticias', new NewController().noticias)
 routes.patch('/alter-new/:id', authMiddleware, new NewController().alter)
 routes.delete('/delete-new/:id', authMiddleware ,new NewController().delete)
 
