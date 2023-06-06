@@ -4,9 +4,16 @@ import { PacienteControllers } from "./controllers/PacienteControllers";
 import { ProntuarioControllers } from "./controllers/ProntuarioControllers";
 import { UserController } from "./controllers/UserControllers";
 import authMiddleware  from "./middlewares/authMiddleware";
+// import multer from "multer";
 
 
 const routes = Router()
+const uploadImage = require("./services/firebase")
+
+// const Multer = multer({
+//     storage: multer.memoryStorage(),
+//     limits: 1024 * 1024,
+// });
 
 //Rotas de Usuario
 routes.post('/create-user', new UserController().create)

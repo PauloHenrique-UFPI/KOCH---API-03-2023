@@ -4,8 +4,9 @@ import { newRepositorie } from "../repositories/NewRepositorie";
 export class NewController {
 
     async create(req: Request, res: Response) {
-
         const { titulo, img, desc_curta, desc_longa } = req.body
+       
+       
 
         if (!titulo || !desc_curta || !desc_longa ) {
             return res.status(400).json({ message: "Os campos 'titulo', 'desc_curta' e 'desc_longa' são obrigatorio"})
