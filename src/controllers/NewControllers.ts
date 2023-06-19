@@ -1,12 +1,17 @@
 import { Request, Response } from "express";
 import { newRepositorie } from "../repositories/NewRepositorie"; 
+interface UploadedFile extends Express.Multer.File {
+    firebaseUrl?: string;
+  }
+  
+
 
 export class NewController {
 
     async create(req: Request, res: Response) {
-        const { titulo, img, desc_curta, desc_longa } = req.body
-       
-       
+        const { titulo, desc_curta, desc_longa } = req.body
+        const firebaseUrl = (req.file as UploadedFile)?.firebaseUrl ?? undefined;
+
 
         if (!titulo || !desc_curta || !desc_longa ) {
             return res.status(400).json({ message: "Os campos 'titulo', 'desc_curta' e 'desc_longa' são obrigatorio"})
@@ -15,7 +20,7 @@ export class NewController {
         try {
             const novaNoticias = newRepositorie.create({
                 titulo: titulo,
-                img: img,
+                img: firebaseUrl,
                 desc_curta: desc_curta,
                 desc_longa: desc_longa
             })
@@ -37,6 +42,7 @@ export class NewController {
     async alter(req: Request, res: Response){
         const id  = parseInt(req.params.id, 10);
         const corpo = req.body
+        
 
         const result = await newRepositorie.update(id, corpo );
 
@@ -46,7 +52,7 @@ export class NewController {
 
         return res.json({ message: "Usuário atualizado com sucesso" });
     }
-
+    
     async noticias(req: Request, res: Response){
         
         try{

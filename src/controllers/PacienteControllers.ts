@@ -1,12 +1,18 @@
 import { Request, Response } from "express";
 import { pacienteRepositorie } from "../repositories/PacienteRepositorie"; 
+interface UploadedFile extends Express.Multer.File {
+    firebaseUrl?: string;
+  }
+  
 
 export class PacienteControllers {
 
     async create(req: Request, res: Response){
 
         const {nome, data_nasc, naturalidade, profissao, nome_mae, forma, cartao_sus, endereco, 
-        municipio, ponto_ref, telefone, n_sinan, unidade_tratamento, unidade_cad, img_trat} = req.body
+        municipio, ponto_ref, telefone, n_sinan, unidade_tratamento, unidade_cad} = req.body
+        const firebaseUrl = (req.file as UploadedFile)?.firebaseUrl ?? undefined;
+
         
         if (!nome || !data_nasc || !naturalidade || !profissao || !nome_mae
             || !forma || !cartao_sus || !endereco || !municipio || !ponto_ref
@@ -30,7 +36,7 @@ export class PacienteControllers {
                 n_sinan: n_sinan, 
                 unidade_tratamento: unidade_tratamento, 
                 unidade_cad: unidade_cad, 
-                img_trat: img_trat
+                img_trat: firebaseUrl
             })
 
             await pacienteRepositorie.save(novoPaciente);
