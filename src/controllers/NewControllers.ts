@@ -73,6 +73,17 @@ export class NewController {
         }
     }
 
+    async noticiasId(req: Request, res: Response){
+        const id  = parseInt(req.params.id, 10);
+        const noticia = await newRepositorie.findOne({ where: { id: id } });
+        if (noticia) {
+            res.json(noticia);
+        } else {
+        
+            res.status(404).json({ message: 'Notícia não encontrada' });
+        } 
+    }
+
 
     async delete(req: Request, res: Response) {
         try {

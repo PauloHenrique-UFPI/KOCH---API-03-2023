@@ -84,6 +84,17 @@ export class PacienteControllers {
         }
     }
 
+    async pacienteId(req: Request, res: Response){
+        const id  = parseInt(req.params.id, 10);
+        const paciente = await pacienteRepositorie.findOne({ where: { id: id } });
+        if (paciente) {
+            res.json(paciente);
+        } else {
+        
+            res.status(404).json({ message: 'Paciente não encontrado' });
+        }
+    }
+
     async delete(req: Request, res: Response){
         try {
             const id = parseInt(req.params.id, 10);

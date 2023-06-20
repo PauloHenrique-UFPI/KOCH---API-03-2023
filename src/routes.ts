@@ -27,12 +27,14 @@ routes.delete('/delete-user/:id', authMiddleware, new UserController().delete)
 //Rotas de Noticias
 routes.post('/create-new', authMiddleware, Multer.single('img'), uploadNoticia, new NewController().create);
 routes.get('/noticias', new NewController().noticias)
+routes.get('/noticia/:id', authMiddleware, new NewController().noticiasId)
 routes.patch('/alter-new/:id', authMiddleware, new NewController().alter)
 routes.delete('/delete-new/:id', authMiddleware ,new NewController().delete)
 
 //Rotas de Pacientes
 routes.post('/create-paciente', authMiddleware, Multer.single('img'), uploadExame,new PacienteControllers().create)
 routes.get('/pacientes',authMiddleware, new PacienteControllers().list)
+routes.get('/paciente/:id',authMiddleware, new PacienteControllers().pacienteId)
 routes.patch('/alter-paciente/:id', authMiddleware, new PacienteControllers().alter)
 routes.delete('/delete-paciente/:id', authMiddleware, new PacienteControllers().delete)
 
