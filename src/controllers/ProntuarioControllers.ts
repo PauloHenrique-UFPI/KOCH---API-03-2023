@@ -63,7 +63,7 @@ export class ProntuarioControllers {
     }
 
     async find(req: Request, res: Response) {
-        const id  = parseInt(req.body.id, 10);
+        const id  = parseInt(req.params.id, 10);
 
         try{
             const prontExist = await prontuarioRepositorie.findOne({ where: {

@@ -12,7 +12,7 @@ export class UserController {
     async create(req: Request, res: Response){
         //cria user
 
-        const { name, email, password, number } = req.body;
+        const { name, email, password, number, rule } = req.body;
 
         if (!name || !email || !password ){
             return res.status(400).json({ message: "Os campos 'nome', 'email' e 'password' são obrigatorio"})
@@ -30,12 +30,13 @@ export class UserController {
 
         try {
             
-            const hashP = await bcrypt.hash(password, 10);//parei aqui
+            const hashP = await bcrypt.hash(password, 10);
             const newUser = userRepositorie.create({
                 name: name, 
                 email: email, 
                 password: hashP,
-                number: number
+                number: number,
+                rule: rule
             })
 
             await userRepositorie.save(newUser);

@@ -43,7 +43,7 @@ routes.post('/create-prontuario', authMiddleware, new ProntuarioControllers().cr
 routes.get('/prontuarios',authMiddleware, new ProntuarioControllers().list)
 routes.patch('/alter-prontuario/:id', authMiddleware, new ProntuarioControllers().alter)
 routes.delete('/delete-prontuario/:id',authMiddleware, new ProntuarioControllers().delete)
-routes.post('/prontuarioPaciente', authMiddleware, new ProntuarioControllers().find)
+routes.get('/prontuarioId/:id', authMiddleware, new ProntuarioControllers().find)
 
 
 
