@@ -12,7 +12,7 @@ export class UserController {
     async create(req: Request, res: Response){
         //cria user
 
-        const { name, email, password, number, rule } = req.body;
+        const { name, email, password, number, rule, id_paciente } = req.body;
 
         if (!name || !email || !password ){
             return res.status(400).json({ message: "Os campos 'nome', 'email' e 'password' são obrigatorio"})
@@ -36,7 +36,8 @@ export class UserController {
                 email: email, 
                 password: hashP,
                 number: number,
-                rule: rule
+                rule: rule,
+                id_paciente: id_paciente
             })
 
             await userRepositorie.save(newUser);
@@ -122,7 +123,6 @@ export class UserController {
                 return {
                   ...contato,
                   password: undefined,
-                  rule: undefined,
                   valid_sign: undefined,
                   created_at: undefined
                 }

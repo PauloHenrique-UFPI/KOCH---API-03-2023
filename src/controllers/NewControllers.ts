@@ -43,14 +43,20 @@ export class NewController {
         const id  = parseInt(req.params.id, 10);
         const corpo = req.body
         
+        try{
+            const result = await newRepositorie.update(id, corpo );
 
-        const result = await newRepositorie.update(id, corpo );
+            if (result.affected === 0) {
+            return res.status(404).json({ message: "Usuário não encontrado" });
+            }
 
-        if (result.affected === 0) {
-        return res.status(404).json({ message: "Usuário não encontrado" });
+            return res.json({ message: "Usuário atualizado com sucesso" });
+        } catch (error){
+            console.log(error);
+            return res.status(500).json({
+            message: "erro interno",
+            });
         }
-
-        return res.json({ message: "Usuário atualizado com sucesso" });
     }
     
     async noticias(req: Request, res: Response){

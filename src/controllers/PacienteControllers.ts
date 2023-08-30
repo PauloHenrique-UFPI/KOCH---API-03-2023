@@ -55,14 +55,21 @@ export class PacienteControllers {
     async alter(req: Request, res: Response){
         const id  = parseInt(req.params.id, 10);
         const corpo = req.body
+        try{
+            const result = await pacienteRepositorie.update(id, corpo );
 
-        const result = await pacienteRepositorie.update(id, corpo );
+            if (result.affected === 0) {
+            return res.status(404).json({ message: "Paciente não encontrado" });
+            }
 
-        if (result.affected === 0) {
-        return res.status(404).json({ message: "Paciente não encontrado" });
+            return res.json({ message: "Paciente atualizado com sucesso" });
+        } catch (error){
+            console.log(error);
+            return res.status(500).json({
+              message: "erro interno",
+            });
         }
-
-        return res.json({ message: "Paciente atualizado com sucesso" });
+        
     }
 
     async list(req: Request, res: Response){

@@ -51,6 +51,7 @@ export class ProntuarioControllers {
                 groups: itens.map((item) => {
                     return {
                     ...item,
+                    paciente: undefined,
                     }
                 }),
               
@@ -91,13 +92,20 @@ export class ProntuarioControllers {
         const id  = parseInt(req.params.id, 10);
         const corpo = req.body
 
-        const result = await prontuarioRepositorie.update(id, corpo );
+        try{
+            const result = await prontuarioRepositorie.update(id, corpo );
 
-        if (result.affected === 0) {
-        return res.status(404).json({ message: "Prontuario não encontrado" });
+            if (result.affected === 0) {
+            return res.status(404).json({ message: "Prontuario não encontrado" });
+            }
+
+            return res.json({ message: "Prontuario atualizado com sucesso" });
+        } catch (error){
+            console.log(error);
+            return res.status(500).json({
+              message: "erro interno",
+            });
         }
-
-        return res.json({ message: "Prontuario atualizado com sucesso" });
     }
 
     async delete(req: Request, res: Response){

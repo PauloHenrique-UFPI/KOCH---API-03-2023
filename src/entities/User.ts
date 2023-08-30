@@ -23,6 +23,9 @@ export class User {
   @Column({nullable: true})
   valid_sign: Date;
 
+  @Column({nullable: true})
+  id_paciente: number
+
   @CreateDateColumn()
   readonly created_at: Date;
 }

@@ -4,6 +4,7 @@ import { PacienteControllers } from "./controllers/PacienteControllers";
 import { ProntuarioControllers } from "./controllers/ProntuarioControllers";
 import { UserController } from "./controllers/UserControllers";
 import authMiddleware  from "./middlewares/authMiddleware";
+import { EventoControllers } from "./controllers/EventoControllers";
 
 
 
@@ -44,6 +45,12 @@ routes.get('/prontuarios',authMiddleware, new ProntuarioControllers().list)
 routes.patch('/alter-prontuario/:id', authMiddleware, new ProntuarioControllers().alter)
 routes.delete('/delete-prontuario/:id',authMiddleware, new ProntuarioControllers().delete)
 routes.get('/prontuarioId/:id', authMiddleware, new ProntuarioControllers().find)
+
+//Rotas de Evento
+routes.post('/create-evento', authMiddleware, new EventoControllers().create)
+routes.get('/eventos/:id', authMiddleware, new EventoControllers().find)
+routes.put('/alter-evento/:id', authMiddleware, new EventoControllers().alter)
+routes.delete('/delete-evento/:id', authMiddleware, new EventoControllers().delete)
 
 
 
