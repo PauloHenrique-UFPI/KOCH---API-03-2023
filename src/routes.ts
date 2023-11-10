@@ -20,7 +20,7 @@ const Multer = multer({
 });
 
 //Rotas de Usuario
-routes.post('/create-user', new UserController().create)
+routes.post('/create-user', new UserController().create)//erro tremendo tem que autorizar !!!
 routes.post('/login', new UserController().sign)
 routes.get('/contatos', authMiddleware, new UserController().contatos)
 routes.delete('/delete-user/:id', authMiddleware, new UserController().delete)

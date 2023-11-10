@@ -24,7 +24,7 @@ export class User {
   valid_sign: Date;
 
   @Column({nullable: true})
-  id_paciente: number
+  idPaciente: number
 
   @CreateDateColumn()
   readonly created_at: Date;

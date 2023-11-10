@@ -37,7 +37,7 @@ export class UserController {
                 password: hashP,
                 number: number,
                 rule: rule,
-                id_paciente: id_paciente
+                idPaciente: id_paciente
             })
 
             await userRepositorie.save(newUser);
