@@ -52,25 +52,33 @@ export class PacienteControllers {
         }
     }
 
-    async alter(req: Request, res: Response){
-        const id  = parseInt(req.params.id, 10);
-        const corpo = req.body
-        try{
-            const result = await pacienteRepositorie.update(id, corpo );
-
+    async alter(req: Request, res: Response) {
+        const id = parseInt(req.params.id, 10);
+        const corpo = req.body;
+        const { img, ...dadosParaAtualizar } = corpo;
+    
+        const imgT = (req.file as UploadedFile)?.firebaseUrl ?? undefined;
+    
+        try {
+            const result = await pacienteRepositorie.update(id, dadosParaAtualizar);
+    
             if (result.affected === 0) {
-            return res.status(404).json({ message: "Paciente não encontrado" });
+                return res.status(404).json({ message: "Paciente não encontrado" });
             }
-
+    
+            if (imgT) {
+                await pacienteRepositorie.update(id, { img_trat: imgT });
+            }
+    
             return res.json({ message: "Paciente atualizado com sucesso" });
-        } catch (error){
+        } catch (error) {
             console.log(error);
             return res.status(500).json({
-              message: "erro interno",
+                message: "Erro interno",
             });
         }
-        
     }
+    
 
     async list(req: Request, res: Response){
         try{

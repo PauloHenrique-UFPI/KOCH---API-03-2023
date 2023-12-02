@@ -29,20 +29,20 @@ routes.delete('/delete-user/:id', authMiddleware, new UserController().delete)
 routes.post('/create-new', authMiddleware, Multer.single('img'), uploadNoticia, new NewController().create);
 routes.get('/noticias', new NewController().noticias)
 routes.get('/noticia/:id', authMiddleware, new NewController().noticiasId)
-routes.patch('/alter-new/:id', authMiddleware, new NewController().alter)
+routes.put('/alter-new/:id', authMiddleware, Multer.single('img'), uploadNoticia, new NewController().alter)
 routes.delete('/delete-new/:id', authMiddleware ,new NewController().delete)
 
 //Rotas de Pacientes
 routes.post('/create-paciente', authMiddleware, Multer.single('img'), uploadExame,new PacienteControllers().create)
 routes.get('/pacientes',authMiddleware, new PacienteControllers().list)
 routes.get('/paciente/:id',authMiddleware, new PacienteControllers().pacienteId)
-routes.patch('/alter-paciente/:id', authMiddleware, new PacienteControllers().alter)
+routes.put('/alter-paciente/:id', authMiddleware, Multer.single('img'), uploadExame,new PacienteControllers().alter)
 routes.delete('/delete-paciente/:id', authMiddleware, new PacienteControllers().delete)
 
 //Rotas de Prontuario
 routes.post('/create-prontuario', authMiddleware, new ProntuarioControllers().create)
 routes.get('/prontuarios',authMiddleware, new ProntuarioControllers().list)
-routes.patch('/alter-prontuario/:id', authMiddleware, new ProntuarioControllers().alter)
+routes.put('/alter-prontuario/:id', authMiddleware, new ProntuarioControllers().alter)
 routes.delete('/delete-prontuario/:id',authMiddleware, new ProntuarioControllers().delete)
 routes.get('/prontuarioId/:id', authMiddleware, new ProntuarioControllers().find)
 

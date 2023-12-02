@@ -42,13 +42,21 @@ export class NewController {
     async alter(req: Request, res: Response){
         const id  = parseInt(req.params.id, 10);
         const corpo = req.body
+        const { img, ...dadosParaAtualizar } = corpo;
+    
+        const imgT = (req.file as UploadedFile)?.firebaseUrl ?? undefined;
         
         try{
-            const result = await newRepositorie.update(id, corpo );
+            const result = await newRepositorie.update(id, dadosParaAtualizar);
 
             if (result.affected === 0) {
             return res.status(404).json({ message: "Usuário não encontrado" });
             }
+
+            if (imgT) {
+                await newRepositorie.update(id, { img: imgT });
+            }
+    
 
             return res.json({ message: "Usuário atualizado com sucesso" });
         } catch (error){
