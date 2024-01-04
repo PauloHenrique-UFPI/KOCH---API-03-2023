@@ -5,6 +5,7 @@ import { ProntuarioControllers } from "./controllers/ProntuarioControllers";
 import { UserController } from "./controllers/UserControllers";
 import authMiddleware  from "./middlewares/authMiddleware";
 import { EventoControllers } from "./controllers/EventoControllers";
+import { ExameControllers } from "./controllers/ExameControllers";
 
 
 
@@ -22,6 +23,8 @@ const Multer = multer({
 //Rotas de Usuario
 routes.post('/create-user', new UserController().create)//erro tremendo tem que autorizar !!!
 routes.post('/login', new UserController().sign)
+routes.post('/esqueci', new UserController().enviarEmailRedefinicao)
+routes.post('/trocarSenha', new UserController().resetarSenha)
 routes.get('/contatos', authMiddleware, new UserController().contatos)
 routes.delete('/delete-user/:id', authMiddleware, new UserController().delete)
 
@@ -52,6 +55,11 @@ routes.get('/eventos/:id', authMiddleware, new EventoControllers().find)
 routes.put('/alter-evento/:id', authMiddleware, new EventoControllers().alter)
 routes.delete('/delete-evento/:id', authMiddleware, new EventoControllers().delete)
 
+//Rotas de Exame
+routes.post('/create-exame', authMiddleware, Multer.single('img'), uploadExame, new ExameControllers().create)
+routes.get('/exame/:id', authMiddleware, new ExameControllers().find)
+routes.put('/alter-exame/:id', authMiddleware, Multer.single('img'), uploadExame, new ExameControllers().alter)
+routes.delete('/delete-exame/:id', authMiddleware, new ExameControllers().delete)
 
 
 export default routes
