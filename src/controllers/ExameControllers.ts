@@ -1,11 +1,40 @@
 import { Request, Response } from "express";
 import { exameRepositorie } from "../repositories/ExameRepositories";
+import { api } from "../boot/axios";
+import { Paciente } from "../entities/Paciente";
+import { Exame } from "../entities/Exame";
+const FormData = require('form-data');
 
 interface UploadedFile extends Express.Multer.File {
     firebaseUrl?: string;
   }
 
 export class ExameControllers {
+
+    async realizar (req: Request, res: Response) {
+        if (!req.file) {
+          return res.status(500).json({ error: 'Erro ao processar a solicitação' });
+        }
+      
+        const image = req.file;
+        const formData = new FormData();
+        formData.append('file', image.buffer, { filename: image.originalname });
+      
+        try {
+          console.log(formData);
+          const resp = await api.post("http://154.56.41.138:5000/upload", formData, {
+            headers: {
+              ...formData.getHeaders(),
+            },
+          });
+      
+        
+          return resp.data;
+        } catch (erro) {
+          console.error(erro);
+          return res.status(500).json({ error: 'Erro ao processar a solicitação' });
+        }
+      }
 
     async create (req: Request, res: Response){
         const { nome, date, paciente} = req.body
@@ -78,7 +107,7 @@ export class ExameControllers {
     
             if (lista){
                 return res.json({
-                    groups: lista.map((item) => {
+                    groups: lista.map((item: Exame) => {
                         return {
                         ...item,
                         paciente: undefined,

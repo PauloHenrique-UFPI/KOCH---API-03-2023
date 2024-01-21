@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { eventoRepositorie } from "../repositories/EventoRepositories";
+import { Evento } from "../entities/Evento";
 
 export class EventoControllers {
 
@@ -63,7 +64,7 @@ export class EventoControllers {
     
             if (lista){
                 return res.json({
-                    groups: lista.map((item) => {
+                    groups: lista.map((item: Evento) => {
                         return {
                         ...item,
                         paciente: undefined,

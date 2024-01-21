@@ -56,6 +56,7 @@ routes.put('/alter-evento/:id', authMiddleware, new EventoControllers().alter)
 routes.delete('/delete-evento/:id', authMiddleware, new EventoControllers().delete)
 
 //Rotas de Exame
+// routes.post('/envio', Multer.single('img'), new ExameControllers().realizar)
 routes.post('/create-exame', authMiddleware, Multer.single('img'), uploadExame, new ExameControllers().create)
 routes.get('/exame/:id', authMiddleware, new ExameControllers().find)
 routes.put('/alter-exame/:id', authMiddleware, Multer.single('img'), uploadExame, new ExameControllers().alter)
