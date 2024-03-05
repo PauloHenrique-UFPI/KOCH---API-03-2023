@@ -18,7 +18,6 @@ export class UserController {
 
     async create(req: Request, res: Response){
         //cria user
-
         const { name, email, password, number, rule, id_paciente } = req.body;
 
         if (!name || !email || !password ){

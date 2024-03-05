@@ -1,7 +1,9 @@
 var admin = require("firebase-admin");
 
-var serviceAccount = require("/etc/secrets/firebase-key.json");
+var serviceAccount = require("../../etc/secrets/firebase-key.json");
+// var serviceAccount = require("/etc/secrets/firebase-key.json");
 // var serviceAccount = require("../../etc/secrets/firebase-key.json");
+// var serviceAccount = require("../secrets/firebase-key.json");
 
 const BUCKET = "tb-koch.appspot.com"
 
